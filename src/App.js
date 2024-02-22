@@ -1,7 +1,24 @@
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const [weatherData, setWeatherData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://localhost:7177/WeatherForecast');
+        const data = await response.json();
+        setWeatherData(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures the effect runs only once on component mount
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +34,11 @@ function App() {
         >
           Learn React
         </a>
+        <ul>
+          {weatherData.map((t, index) => (
+            <li key={index}>{t.summary}</li>
+          ))}
+        </ul>
       </header>
     </div>
   );
