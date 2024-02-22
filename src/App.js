@@ -36,7 +36,7 @@ function App() {
         </a>
         <ul>
           {weatherData.map((t, index) => (
-            <li key={index}>{t.summary}</li>
+            <p key={index}>The weather is {t.summary} with a temprature of {t.temperatureC}C on {t.date}.</p>
           ))}
         </ul>
       </header>
