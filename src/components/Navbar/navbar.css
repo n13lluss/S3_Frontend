@@ -1,0 +1,25 @@
+.blog_navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: rgb(33, 136, 226);
+    margin-bottom: 1rem;
+}
+
+.blog_navbar a {
+    padding: 10px;
+    background-color: red;
+    border-radius: 50px;
+    margin: 3px;
+    color: white;
+    text-decoration: none;
+}
+
+.blog_navbar a.active {
+    padding: 10px;
+    background-color: green;
+    border-radius: 50px;
+    margin: 3px;
+    color: white;
+    text-decoration: none;
+}
