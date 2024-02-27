@@ -14,12 +14,12 @@ const Blog = ({ blogname }) => {
       </p>
       <ul>
         <li>
-            <a href="">
+            <a href="/">
                 <button className='blog-card-visit'>Visit blog</button>
             </a>
         </li>
         <li>
-            <a href="">
+            <a href="/">
                 <button className='blog-card-like'>like</button>
             </a>
         </li>
