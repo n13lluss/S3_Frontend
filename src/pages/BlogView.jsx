@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom'; // Import useParams
+import { Link, useParams } from 'react-router-dom';
 import blogApi from '../api/blogApi';
 import Modal from '../components/Modal';
 
 const BlogView = () => {
-  const { id } = useParams(); // Use the useParams hook
+  const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -19,7 +19,7 @@ const BlogView = () => {
     };
 
     fetchBlog();
-  }, [id]); // Use id directly in the dependency array
+  }, [id]);
 
   const handleDelete = async () => {
     try {
@@ -29,14 +29,16 @@ const BlogView = () => {
       console.error('Error deleting blog:', error);
     }
   };
-
+  console.log(blog)
   return (
     <div>
+      <Link to="/blogs">Back to List</Link> {/* Add this line for the "Back to List" button */}
+      
       {blog ? (
         <div>
           <h2>{blog.name}</h2>
           <p>{blog.description}</p>
-          <p>Posted by {blog.user_Name} on {new Date(blog.posted_On).toLocaleString()}</p>
+          <p>Posted by {blog.user_Name} on {new Date(blog.startDate).toLocaleString()}</p>
           <p>Likes: {blog.likes}</p>
           
           {/* Edit and Delete buttons */}
@@ -49,7 +51,7 @@ const BlogView = () => {
             isOpen={showDeleteModal}
             onClose={() => setShowDeleteModal(false)}
             onDelete={handleDelete}
-            postId={blog.id} // Pass the postId to the Modal component
+            postId={blog.id}
           />
         </div>
       ) : (

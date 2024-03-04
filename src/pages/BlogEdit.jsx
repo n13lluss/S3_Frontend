@@ -36,9 +36,11 @@ const BlogEdit = () => {
     e.preventDefault();
     try {
       await blogApi.updateBlogById(id, formData);
-      // Redirect to the blog view page or handle as needed
+      // Redirect to the blog view page
+      window.location.href = `/blogs/${id}`;
     } catch (error) {
       console.error('Error updating blog:', error);
+      // Handle the error, show a message, or perform other actions
     }
   };
 

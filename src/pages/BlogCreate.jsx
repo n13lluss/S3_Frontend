@@ -1,8 +1,9 @@
-// pages/BlogCreate.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import blogApi from '../api/blogApi';
 
 const BlogCreate = () => {
+  const navigate = useNavigate();  // Initialize the useNavigate hook
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -18,7 +19,8 @@ const BlogCreate = () => {
     e.preventDefault();
     try {
       await blogApi.createBlog(formData);
-      // Redirect to the blog list page or handle as needed
+      // Redirect to the blog list page
+      navigate('/blogs');  // Replace '/blog-list' with the actual route
     } catch (error) {
       console.error('Error creating blog:', error);
     }
