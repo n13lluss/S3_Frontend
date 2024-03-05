@@ -1,0 +1,14 @@
+.home-container{
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: grey;
+    color: whitesmoke;
+}
+
+.home-text{
+    font-size: 3rem;
+    text-align: center;
+}

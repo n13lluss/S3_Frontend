@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import blogApi from '../api/blogApi';
+import './blogedit.css'; // Import the new CSS file for styling
 
 const BlogEdit = () => {
   const { id } = useParams();
@@ -45,23 +46,34 @@ const BlogEdit = () => {
   };
 
   return (
-    <div>
+    <div className='blog-edit_page'>
       {blog ? (
-        <div>
-          <h2>Edit Blog</h2>
-          <form onSubmit={handleSubmit}>
-            <label>
+        <div className='blog-edit_container'>
+          <h2 className='blog-edit_name'>Edit Blog</h2>
+          <form className='blog-edit_form' onSubmit={handleSubmit}>
+            <label className='blog-edit_label'>
               Name:
-              <input type="text" name="name" value={formData.name} onChange={handleChange} />
+              <input
+                className='blog-edit_input'
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
             </label>
-            <label>
+            <label className='blog-edit_label'>
               Description:
-              <textarea name="description" value={formData.description} onChange={handleChange} />
+              <textarea
+                className='blog-edit_textarea'
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+              />
             </label>
-            <button type="submit">Save Changes</button>
+            <button className='blog-edit_button' type="submit">Save Changes</button>
           </form>
           <Link to={`/blogs/${blog.id}`}>
-            <button>Cancel</button>
+            <button className='blog-edit_button blog-edit_button_cancel'>Cancel</button>
           </Link>
         </div>
       ) : (

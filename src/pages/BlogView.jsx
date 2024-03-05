@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import blogApi from '../api/blogApi';
 import Modal from '../components/Modal';
+import './blogview.css'
 
 const BlogView = () => {
   const { id } = useParams();
@@ -31,22 +32,23 @@ const BlogView = () => {
   };
   console.log(blog)
   return (
-    <div>
-      <Link to="/blogs">Back to List</Link> {/* Add this line for the "Back to List" button */}
+    <div className='blog-view_page'>
+      <Link className='blog-view_return-list' to="/blogs">Back to List</Link> {/* Add this line for the "Back to List" button */}
       
       {blog ? (
-        <div>
-          <h2>{blog.name}</h2>
-          <p>{blog.description}</p>
-          <p>Posted by {blog.user_Name} on {new Date(blog.startDate).toLocaleString()}</p>
-          <p>Likes: {blog.likes}</p>
+        <div className='blog-view_container'>
+          <h2 className='blog-view_name'>{blog.name}</h2>
+          <p className='blog-view_description'>{blog.description}</p>
+          <p className='blog-view_posted'>Posted by {blog.user_Name} on {new Date(blog.startDate).toLocaleString()}</p>
+          <p className='blog-view_likes'>Likes: {blog.likes}</p>
           
           {/* Edit and Delete buttons */}
+          <section className='blog-view_buttons-container'>
           <Link to={`/edit/${blog.id}`}>
-            <button>Edit</button>
+            <button className='blog-view_button edit'>Edit</button>
           </Link>
-          <button onClick={() => setShowDeleteModal(true)}>Delete</button>
-          
+          <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>Delete</button>
+          </section>          
           <Modal
             isOpen={showDeleteModal}
             onClose={() => setShowDeleteModal(false)}

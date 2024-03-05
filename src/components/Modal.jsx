@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import './modal.css'
 
 const Modal = ({ isOpen, onClose, onDelete, postId }) => {
   const navigate = useNavigate();

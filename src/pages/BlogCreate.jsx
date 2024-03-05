@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import blogApi from '../api/blogApi';
+import './blogcreate.css'; // Import the new CSS file for styling
 
 const BlogCreate = () => {
-  const navigate = useNavigate();  // Initialize the useNavigate hook
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -19,28 +20,40 @@ const BlogCreate = () => {
     e.preventDefault();
     try {
       await blogApi.createBlog(formData);
-      // Redirect to the blog list page
-      navigate('/blogs');  // Replace '/blog-list' with the actual route
+      navigate('/blogs');
     } catch (error) {
       console.error('Error creating blog:', error);
     }
   };
 
   return (
-    <div>
-      <h2>Create Blog</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
-        </label>
-        <label>
-          Description:
-          <textarea name="description" value={formData.description} onChange={handleChange} />
-        </label>
-        {/* Add other form fields as needed */}
-        <button type="submit">Create</button>
-      </form>
+    <div className='blog-create_page'>
+      <div className='blog-create_container'>
+        <h2 className='blog-create_name'>Create Blog</h2>
+        <form className='blog-create_form' onSubmit={handleSubmit}>
+          <label className='blog-create_label'>
+            Name:
+            <input
+              className='blog-create_input'
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </label>
+          <label className='blog-create_label'>
+            Description:
+            <textarea
+              className='blog-create_textarea'
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </label>
+          {/* Add other form fields as needed */}
+          <button className='blog-create_button' type="submit">Create</button>
+        </form>
+      </div>
     </div>
   );
 }
