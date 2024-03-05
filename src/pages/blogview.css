@@ -1,0 +1,47 @@
+.blog-view_page{
+    height: 100%;
+    background-color: grey;
+}
+
+.blog-view_return-list{
+    text-decoration: none;
+    color: inherit;
+    padding: 0.5rem;
+    margin: 0.25rem;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.blog-view_return-list:hover{
+    background-color: lightblue;
+    color: white;
+}
+
+.blog-view_container{
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: white;
+    padding: 0.5rem;
+}
+
+.blog-view_name{
+    color: whitesmoke;
+}
+
+.blog-view_buttons-container{
+    display: flex;
+    gap: 10px;
+}
+
+.blog-view_button{
+    cursor: pointer;
+    border: none;
+    display: inline-block;
+    color: white;
+    background-color: lightblue;
+    width: 100px;
+    padding: 0.5rem;
+    border-radius: 10px;
+}

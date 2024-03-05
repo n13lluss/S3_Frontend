@@ -1,0 +1,45 @@
+.blog-create_page {
+    height: 100%;
+    background-color: grey;
+    padding: 1rem;
+  }
+  
+  .blog-create_container {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: white;
+    padding: 0.5rem;
+  }
+  
+  .blog-create_name {
+    color: whitesmoke;
+  }
+  
+  .blog-create_form {
+    margin-top: 1rem;
+  }
+  
+  .blog-create_label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .blog-create_input,
+  .blog-create_textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  
+  .blog-create_button {
+    cursor: pointer;
+    border: none;
+    display: inline-block;
+    color: white;
+    background-color: lightblue;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  
