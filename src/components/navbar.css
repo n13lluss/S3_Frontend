@@ -20,3 +20,9 @@ nav ul li a{
 .navbar-button_create-post{
     align-self: flex-end;
 }
+
+@media screen and (max-width: 600px) {
+    nav ul {
+        justify-content: center;
+    }
+}
