@@ -26,3 +26,8 @@ nav ul li a{
         justify-content: center;
     }
 }
+
+a.active {
+    background-color: lightblue;
+    border-radius: 15px;
+}
