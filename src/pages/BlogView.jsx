@@ -30,25 +30,36 @@ const BlogView = () => {
       console.error('Error deleting blog:', error);
     }
   };
-  console.log(blog)
+  
   return (
     <div className='blog-view_page'>
-      <Link className='blog-view_return-list' to="/blogs">Back to List</Link> {/* Add this line for the "Back to List" button */}
-      
+      <Link className='blog-view_return-list' to="/blogs">Back to List</Link>
+
       {blog ? (
         <div className='blog-view_container'>
           <h2 className='blog-view_name'>{blog.name}</h2>
           <p className='blog-view_description'>{blog.description}</p>
           <p className='blog-view_posted'>Posted by {blog.user_Name} on {new Date(blog.startDate).toLocaleString()}</p>
           <p className='blog-view_likes'>Likes: {blog.likes}</p>
-          
-          {/* Edit and Delete buttons */}
+
           <section className='blog-view_buttons-container'>
-          <Link to={`/edit/${blog.id}`}>
-            <button className='blog-view_button edit'>Edit</button>
-          </Link>
-          <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>Delete</button>
-          </section>          
+            <Link to={`/edit/${blog.id}`}>
+              <button className='blog-view_button edit'>Edit</button>
+            </Link>
+            <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>Delete</button>
+          </section>
+
+          {/* Rendering blog posts */}
+          <div className="blog-view_posts">
+            {blog.posts.map(post => (
+              <div key={post.id} className="blog-view_post">
+                <h3>{post.name}</h3>
+                <p>{post.description}</p>
+                <p>Posted on: {new Date(post.posted).toLocaleString()}</p>
+              </div>
+            ))}
+          </div>
+
           <Modal
             isOpen={showDeleteModal}
             onClose={() => setShowDeleteModal(false)}
