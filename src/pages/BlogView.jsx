@@ -30,7 +30,7 @@ const BlogView = () => {
       console.error('Error deleting blog:', error);
     }
   };
-  console.log(blog)
+  
   return (
     <div className='blog-view_page'>
       <Link className='blog-view_return-list' to="/blogs">Back to List</Link>

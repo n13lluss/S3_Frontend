@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import blogApi from '../api/blogApi';
-import './blogcreate.css'; // Import the new CSS file for styling
+import './blogcreate.css';
 
 const BlogCreate = () => {
   const navigate = useNavigate();
