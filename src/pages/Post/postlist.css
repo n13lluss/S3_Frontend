@@ -1,0 +1,20 @@
+.blog-view_posts {
+    margin-top: 20px;
+}
+
+.blog-view_post {
+    background-color: #454d59;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.blog-view_post h3 {
+    color: #61dafb;
+    margin-bottom: 10px;
+}
+
+.blog-view_post p {
+    color: #fff;
+    margin-bottom: 10px;
+}

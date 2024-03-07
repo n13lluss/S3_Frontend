@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import blogApi from '../api/blogApi';
+import blogApi from '../../api/blogApi';
 import './bloglist.css';
 
 const BlogList = () => {

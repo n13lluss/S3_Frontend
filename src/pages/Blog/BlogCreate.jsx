@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import blogApi from '../api/blogApi';
+import blogApi from '../../api/blogApi';
 import './blogcreate.css';
 
 const BlogCreate = () => {

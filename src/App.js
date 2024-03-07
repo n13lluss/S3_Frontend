@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css'
 import Home from './pages/Home/Home.jsx';
-import BlogList from './pages/BlogList';
-import BlogView from './pages/BlogView.jsx';
-import BlogCreate from './pages/BlogCreate';
-import BlogEdit from './pages/BlogEdit';
+import BlogList from './pages/Blog/BlogList';
+import BlogView from './pages/Blog/BlogView.jsx';
+import BlogCreate from './pages/Blog/BlogCreate';
+import BlogEdit from './pages//Blog/BlogEdit';
 import Navbar from './components/Navbar';
 
 function App() {

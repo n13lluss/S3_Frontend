@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import blogApi from '../api/blogApi';
-import Modal from '../components/Modal';
+import blogApi from '../../api/blogApi';
+import Modal from '../../components/Modal';
+import PostList from '../Post/PostList';
 import './blogview.css'
 
 const BlogView = () => {
@@ -38,7 +39,7 @@ const BlogView = () => {
       {blog ? (
         <div className='blog-view_container'>
           <h2 className='blog-view_name'>{blog.name}</h2>
-          <p className='blog-view_description'>{blog.description}</p>
+          <p className='blog-view_description'>{blog.description}</p> 
           <p className='blog-view_posted'>Posted by {blog.user_Name} on {new Date(blog.startDate).toLocaleString()}</p>
           <p className='blog-view_likes'>Likes: {blog.likes}</p>
 
@@ -49,16 +50,7 @@ const BlogView = () => {
             <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>Delete</button>
           </section>
 
-          {/* Rendering blog posts */}
-          <div className="blog-view_posts">
-            {blog.posts.map(post => (
-              <div key={post.id} className="blog-view_post">
-                <h3>{post.name}</h3>
-                <p>{post.description}</p>
-                <p>Posted on: {new Date(post.posted).toLocaleString()}</p>
-              </div>
-            ))}
-          </div>
+          <PostList posts={blog.posts} />
 
           <Modal
             isOpen={showDeleteModal}

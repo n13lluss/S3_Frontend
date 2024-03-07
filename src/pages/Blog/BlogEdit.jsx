@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom'; // Import useNavigate
-import blogApi from '../api/blogApi';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import blogApi from '../../api/blogApi';
 import './blogedit.css';
 
 const BlogEdit = () => {
   const { id } = useParams();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -38,7 +38,6 @@ const BlogEdit = () => {
     e.preventDefault();
     try {
       await blogApi.updateBlogById(id, formData);
-      // Redirect to the blog view page using useNavigate
       navigate(`/blogs/${id}`);
     } catch (error) {
       console.error('Error updating blog:', error);
