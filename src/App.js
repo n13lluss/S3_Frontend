@@ -6,6 +6,8 @@ import BlogList from './pages/Blog/BlogList';
 import BlogView from './pages/Blog/BlogView.jsx';
 import BlogCreate from './pages/Blog/BlogCreate';
 import BlogEdit from './pages//Blog/BlogEdit';
+import LoginPage from './pages/User/LoginPage.jsx'
+import Register from './pages/User/Register.jsx'
 import Navbar from './components/Navbar';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/blogs/:id" element={<BlogView />} />
         <Route path="/create" element={<BlogCreate />} />
         <Route path="/edit/:id" element={<BlogEdit />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<Register />}/>
       </Routes>
     </Router>
   );

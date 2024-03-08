@@ -11,7 +11,8 @@ const BlogList = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const fetchedBlogs = await blogApi.getAllBlogs();
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiTjEzbGx1c3MiLCJleHAiOjE3MDk4NTMwMTUsImlzcyI6IlRyYXZlbCIsImF1ZCI6IlVzZXIifQ.BusMrjr_VaOkkkwWsIrwmqVoayOpUav28Vljl5eR8uA"
+        const fetchedBlogs = await blogApi.getAllBlogs(token);
 
         // Sort blogs by posted_On in descending order
         const sortedBlogs = fetchedBlogs.sort((a, b) => new Date(b.posted_On) - new Date(a.posted_On));

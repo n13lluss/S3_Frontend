@@ -37,7 +37,8 @@ const BlogEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await blogApi.updateBlogById(id, formData);
+      const token = localStorage.getItem('accessToken'); // Get the token from your authentication system
+      await blogApi.updateBlogById(id, formData, token);
       navigate(`/blogs/${id}`);
     } catch (error) {
       console.error('Error updating blog:', error);

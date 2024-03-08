@@ -9,6 +9,9 @@ const api = {
     }),
     Post: axios.create({
         baseURL: `${baseURL}/Post`,
+    }),
+    User: axios.create({
+        baseURL: `${baseURL}/User`,
     })
   };
 

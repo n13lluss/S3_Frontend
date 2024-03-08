@@ -1,3 +1,4 @@
+// BlogCreate.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import blogApi from '../../api/blogApi';
@@ -19,7 +20,10 @@ const BlogCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await blogApi.createBlog(formData);
+      // Get the token from wherever you store it (e.g., localStorage)
+      const token = localStorage.getItem('accessToken');
+
+      await blogApi.createBlog(formData, token);
       navigate('/blogs');
     } catch (error) {
       console.error('Error creating blog:', error);
@@ -56,6 +60,6 @@ const BlogCreate = () => {
       </div>
     </div>
   );
-}
+};
 
 export default BlogCreate;

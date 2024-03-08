@@ -1,20 +1,23 @@
 .blog-view_posts {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .blog-view_post {
-    background-color: #454d59;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    color: #006d77;
+    padding: 1rem;
+    border: 1px solid #83c5be;
+    background-color: #f5f5f5;
+    border-radius: 10px;
 }
 
 .blog-view_post h3 {
-    color: #61dafb;
+    color: #006d77;
     margin-bottom: 10px;
 }
 
 .blog-view_post p {
-    color: #fff;
+    color: #888;
     margin-bottom: 10px;
 }
