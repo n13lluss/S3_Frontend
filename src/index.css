@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root{
+  --background-dark: #282c35; /* Dark background color */
+  --background-light: #ecf0f1; /* Lighter background color */
+  --primary-color: #006d77; /* Main sea-themed blue color */
+  --accent-color: #83c5be; /* Lighter sea-themed blue color */
+  --button-hover: #3498db; /* Button hover color */
+}

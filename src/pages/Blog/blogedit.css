@@ -1,8 +1,6 @@
-/* blogedit.css */
-
 .blog-edit_page {
   height: 100%;
-  background-color: #282c35; /* Update to match .blog-create_page background-color */
+  background-color: #edf6f9; /* Lighter background color for the container (EDF6F9) */
   padding: 1rem;
 }
 
@@ -11,12 +9,14 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  color: white;
+  color: #006d77; /* Use a sea-themed blue color for the text (#006D77) */
   padding: 0.5rem;
+  background-color: #f5f5f5; /* Lighter background color (Gray) */
+  border-radius: 10px;
 }
 
 .blog-edit_name {
-  color: whitesmoke;
+  color: #006d77; /* Use a sea-themed blue color for the title (#006D77) */
 }
 
 .blog-edit_form {
@@ -35,36 +35,31 @@
   border-radius: 5px;
 }
 
-.blog-edit_buttons-container {
-  display: flex;
-  gap: 10px;
-  margin-top: 1rem;
-}
-
 .blog-edit_button {
   cursor: pointer;
   border: none;
   display: inline-block;
-  color: white;
-  background-color: #61dafb; /* Update to match .blog-create_button background-color */
+  color: #fff;
+  background-color: #e29578; /* Use a sea-themed blue color for the button (#E29578) */
   padding: 0.5rem;
   border-radius: 5px;
 }
 
 .blog-edit_button_cancel {
-  background-color: #ff6666; /* Update to match .blog-create_button_cancel background-color */
+  background-color: #4188b3; /* Darker color for cancel button (#4188B3) */
 }
 
 .blog-edit_return-list {
   text-decoration: none;
-  color: inherit;
+  color: #006d77; /* Use a sea-themed blue color for the text (#006D77) */
   padding: 0.5rem;
   margin: 0.25rem;
   display: inline-block;
   border-radius: 10px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .blog-edit_return-list:hover {
-  background-color: #61dafb; /* Update to match .blog-create_button background-color on hover */
-  color: white;
+  background-color: #006d77; /* Darker color on hover (#006D77) */
+  color: #fff;
 }

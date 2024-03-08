@@ -1,8 +1,10 @@
+// BlogView.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import blogApi from '../api/blogApi';
-import Modal from '../components/Modal';
-import './blogview.css'
+import blogApi from '../../api/blogApi';
+import Modal from '../../components/Modal';
+import PostList from '../Post/PostList';
+import './blogview.css';
 
 const BlogView = () => {
   const { id } = useParams();
@@ -24,47 +26,45 @@ const BlogView = () => {
 
   const handleDelete = async () => {
     try {
-      await blogApi.deleteBlogById(id);
+      await blogApi.deleteBlogById(id, localStorage.getItem('accessToken'));
       // Redirect to the blog list page or handle as needed
     } catch (error) {
       console.error('Error deleting blog:', error);
     }
   };
-  
+
   return (
     <div className='blog-view_page'>
-      <Link className='blog-view_return-list' to="/blogs">Back to List</Link>
+      <Link className='blog-view_return-list' to='/blogs'>
+        Back to List
+      </Link>
 
       {blog ? (
         <div className='blog-view_container'>
           <h2 className='blog-view_name'>{blog.name}</h2>
           <p className='blog-view_description'>{blog.description}</p>
-          <p className='blog-view_posted'>Posted by {blog.user_Name} on {new Date(blog.startDate).toLocaleString()}</p>
+          <p className='blog-view_posted'>
+            Started by {blog.user_Name} on {new Date(blog.startDate).toLocaleString()}
+          </p>
           <p className='blog-view_likes'>Likes: {blog.likes}</p>
 
           <section className='blog-view_buttons-container'>
             <Link to={`/edit/${blog.id}`}>
               <button className='blog-view_button edit'>Edit</button>
             </Link>
-            <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>Delete</button>
+            <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>
+              Delete
+            </button>
           </section>
 
-          {/* Rendering blog posts */}
-          <div className="blog-view_posts">
-            {blog.posts.map(post => (
-              <div key={post.id} className="blog-view_post">
-                <h3>{post.name}</h3>
-                <p>{post.description}</p>
-                <p>Posted on: {new Date(post.posted).toLocaleString()}</p>
-              </div>
-            ))}
-          </div>
+          <PostList posts={blog.posts} />
 
           <Modal
             isOpen={showDeleteModal}
             onClose={() => setShowDeleteModal(false)}
             onDelete={handleDelete}
             postId={blog.id}
+            blogName={blog.name} // Pass the blog name as a prop
           />
         </div>
       ) : (
@@ -72,6 +72,6 @@ const BlogView = () => {
       )}
     </div>
   );
-}
+};
 
 export default BlogView;

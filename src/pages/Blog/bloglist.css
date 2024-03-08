@@ -1,11 +1,13 @@
+/* blog.css */
+
 .blog-page_container {
     display: flex;
     height: 100%;
     flex-direction: column;
     align-items: center;
     padding: 1rem;
-    background-color: #282c35;
-    color: whitesmoke;
+    background-color: #edf6f9; /* Lighter background color for the container (EDF6F9) */
+    color: #006d77; /* Adjust text color to maintain readability (#006D77) */
     overflow: hidden;
 }
 
@@ -15,27 +17,33 @@
 }
 
 .blog-page_post-container {
-    display: flex;
-    flex-wrap: wrap;
+    padding: 0.5rem;
+    display: grid;
     gap: 1rem;
     width: 100%;
 }
 
 .blog-post_container {
-    width: calc(100% - 1rem);
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.25em;
     height: auto;
     border-radius: 15px;
-    padding: 0.5rem;
-    border: rgb(103, 103, 103) 1px solid;
-    background-color: rgba(174, 174, 174, 0.601);
+    padding: 1rem;
+    border: 1px solid #83c5be; /* Use a sea-themed blue color for the border (#83C5BE) */
+    background-color: #f5f5f5; /* Lighter background color (Gray) */
+    text-align: left; /* Align all text to the left */
+}
+
+.blog-post_name {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #006d77; /* Use a sea-themed blue color for the title (#006D77) */
 }
 
 @media (min-width: 601px) {
     .blog-page_post-container {
-        display: grid;
         grid-template-columns: repeat(auto-fill, minmax(calc(50% - 1rem), 1fr));
     }
 }
@@ -48,23 +56,37 @@
 
 .blog-post_description {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    margin-bottom: 0.5rem;
+    color: #555; /* Dim the color for description */
+}
+
+.blog-post_posted,
+.blog-post_likes {
+    font-size: 0.9rem;
+    color:  #888;
+    margin-bottom: 0.5rem;
 }
 
 .blog-post_visit {
-    margin: 0.25rem 0;
+    margin-top: 0.5rem;
     border: none;
     padding: 0.5rem 0.25rem;
     border-radius: 10px;
     cursor: pointer;
-    background-color: #61dafb;
+    background-color: #e29578;
     color: white;
+    transition: background-color 0.3s, color 0.3s; /* Add transition for smooth hover effect */
+}
+
+.blog-post_visit:hover {
+    background-color: #4188b3;
 }
 
 .blog-post_visit:visited {
-    background-color: black;
+    background-color: #ffddd2; /* Darker color for visited state (#FFDDD2) */
     color: white;
 }
 
