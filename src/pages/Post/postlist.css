@@ -5,19 +5,19 @@
 }
 
 .blog-view_post {
-    color: #006d77;
+    color: var(--title-color);
     padding: 1rem;
-    border: 1px solid #83c5be;
-    background-color: #f5f5f5;
+    border: 1px solid var(--accent-color);
+    background-color: var(--background-component);
     border-radius: 10px;
 }
 
 .blog-view_post h3 {
-    color: #006d77;
+    color: var(--title-color);
     margin-bottom: 10px;
 }
 
 .blog-view_post p {
-    color: #888;
+    color: var(--text-extras);
     margin-bottom: 10px;
 }

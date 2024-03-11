@@ -14,8 +14,16 @@ code {
 
 :root{
   --background-dark: #282c35; /* Dark background color */
-  --background-light: #ecf0f1; /* Lighter background color */
+  --background-light: #edf6f9; /* Lighter background color */
+  --background-component: #f5f5f5;
+  --text-color: white;
+  --title-color: #006d77;
+  --text-description: #555;
+  --text-extras: #888;
+  --text-error: red;
   --primary-color: #006d77; /* Main sea-themed blue color */
   --accent-color: #83c5be; /* Lighter sea-themed blue color */
-  --button-hover: #3498db; /* Button hover color */
+  --button-color: #e29578;
+  --second-button-color: #4188b3;
+  --button-hover: #3498db;
 }

@@ -4,8 +4,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #edf6f9;
-    color: #e29578;
+    background-color: var(--background-light);
+    color: var(--button-color);
   }
   
   .home-text {
