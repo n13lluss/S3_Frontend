@@ -3,12 +3,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #edf6f9; /* Lighter background color for the container */
+  background-color: var(--background-light); /* Lighter background color for the container */
   padding: 1rem;
 }
 
 .login-container {
-  background-color: #edf6f9; /* Match the background color */
+  background-color: var(--background-light); /* Match the background color */
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -16,7 +16,7 @@
 }
 
 .login-container h2 {
-  color: #006d77; /* Use a sea-themed blue color for the title */
+  color: var(--title-color); /* Use a sea-themed blue color for the title */
   margin-bottom: 1rem;
 }
 
@@ -27,7 +27,7 @@
 .login-container label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #006d77; /* Match the label color */
+  color: var(--title-color); /* Match the label color */
 }
 
 .login-container input {
@@ -35,17 +35,17 @@
   padding: 0.5rem;
   border-radius: 5px;
   margin-bottom: 1rem;
-  border: 1px solid #83c5be; /* Adjust input border */
-  background-color: #f5f5f5; /* Match the input background color */
-  color: #006d77; /* Match the input text color */
+  border: 1px solid var(--accent-color); /* Adjust input border */
+  background-color: var(--background-component); /* Match the input background color */
+  color: var(--title-color); /* Match the input text color */
 }
 
 .login-container button {
   cursor: pointer;
   border: none;
   display: inline-block;
-  color: white;
-  background-color: #e29578; /* Use a sea-themed blue color for the button */
+  color: var(--text-color);
+  background-color: var(--button-color); /* Use a sea-themed blue color for the button */
   width: 100%;
   padding: 0.5rem;
   border-radius: 10px;
@@ -53,5 +53,5 @@
 }
 
 .login-container button:hover {
-  background-color: #4188b3; /* Darker color on hover */
+  background-color: var(--second-button-color); /* Darker color on hover */
 }

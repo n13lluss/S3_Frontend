@@ -3,12 +3,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #edf6f9;
+    background-color: var(--background-light);
     padding: 1rem;
 }
 
 .register-container {
-    background-color: #edf6f9;
+    background-color: var(--background-light);
     padding: 1rem;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -16,7 +16,7 @@
 }
 
 .register-container h2 {
-    color: #006d77;
+    color: var(--text-title);
     margin-bottom: 1rem;
 }
 
@@ -27,7 +27,7 @@
 .register-container label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #006d77;
+    color: var(--text-title);
 }
 
 .register-container input {
@@ -35,17 +35,17 @@
     padding: 0.5rem;
     border-radius: 5px;
     margin-bottom: 1rem;
-    border: 1px solid #83c5be;
-    background-color: #f5f5f5;
-    color: #006d77;
+    border: 1px solid var(--accent-color);
+    background-color: var(--background-component);
+    color: var(--title-color);
 }
 
 .register-container button {
     cursor: pointer;
     border: none;
     display: inline-block;
-    color: white;
-    background-color: #e29578;
+    color: var(--text-color);
+    background-color: var(--button-color);
     width: 100%;
     padding: 0.5rem;
     border-radius: 10px;
@@ -53,17 +53,17 @@
 }
 
 .register-container button:hover {
-    background-color: #4188b3;
+    background-color: var(--second-button-color);
 }
 
 
 .password-error {
-    color: red;
+    color: var(--text-error);
     margin-top: 0.5rem;
 }
 
 .validation-error {
-    color: red;
+    color: var(--text-color);
     margin-top: 0.5rem;
 }
 

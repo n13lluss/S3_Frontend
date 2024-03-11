@@ -6,8 +6,8 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem;
-    background-color: #edf6f9; /* Lighter background color for the container (EDF6F9) */
-    color: #006d77; /* Adjust text color to maintain readability (#006D77) */
+    background-color: var(--background-light); /* Lighter background color for the container (EDF6F9) */
+    color: var(--title-color); /* Adjust text color to maintain readability (#006D77) */
     overflow: hidden;
 }
 
@@ -31,15 +31,15 @@
     height: auto;
     border-radius: 15px;
     padding: 1rem;
-    border: 1px solid #83c5be; /* Use a sea-themed blue color for the border (#83C5BE) */
-    background-color: #f5f5f5; /* Lighter background color (Gray) */
+    border: 1px solid var(--accent-color); /* Use a sea-themed blue color for the border (#83C5BE) */
+    background-color: var(--background-component); /* Lighter background color (Gray) */
     text-align: left; /* Align all text to the left */
 }
 
 .blog-post_name {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    color: #006d77; /* Use a sea-themed blue color for the title (#006D77) */
+    color: var(--title-color); /* Use a sea-themed blue color for the title (#006D77) */
 }
 
 @media (min-width: 601px) {
@@ -60,13 +60,13 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-bottom: 0.5rem;
-    color: #555; /* Dim the color for description */
+    color: var(--text-description); /* Dim the color for description */
 }
 
 .blog-post_posted,
 .blog-post_likes {
     font-size: 0.9rem;
-    color:  #888;
+    color:  var(--text-extras);
     margin-bottom: 0.5rem;
 }
 
@@ -76,18 +76,18 @@
     padding: 0.5rem 0.25rem;
     border-radius: 10px;
     cursor: pointer;
-    background-color: #e29578;
-    color: white;
+    background-color: var(--button-color);
+    color: var(--text-color);
     transition: background-color 0.3s, color 0.3s; /* Add transition for smooth hover effect */
 }
 
 .blog-post_visit:hover {
-    background-color: #4188b3;
+    background-color: var(--button-hover);
 }
 
 .blog-post_visit:visited {
     background-color: #ffddd2; /* Darker color for visited state (#FFDDD2) */
-    color: white;
+    color: var(--text-color);
 }
 
 .blog-page_error-text,

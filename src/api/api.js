@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-// const baseURL = 'https://localhost:7177/api';
-const baseURL = 'https://i427798.luna.fhict.nl/api'
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 
 const api = {
     Blog: axios.create({
