@@ -42,8 +42,9 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className='navbar-user-info'>
-              <p>Welcome, {user && user.nickname}</p>
+              <a href='/' className='link-button'>Welcome {user.name}</a>
             </li>
+            
             <li>
               <a href='/' className='link-button' onClick={() => logout({ returnTo: window.location.origin })}>Logout</a>
             </li>

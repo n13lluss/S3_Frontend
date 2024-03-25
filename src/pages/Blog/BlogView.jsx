@@ -1,6 +1,7 @@
 // BlogView.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import blogApi from '../../api/blogApi';
 import Modal from '../../components/Modal';
 import PostList from '../Post/PostList';
@@ -10,6 +11,7 @@ const BlogView = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -26,8 +28,7 @@ const BlogView = () => {
 
   const handleDelete = async () => {
     try {
-      await blogApi.deleteBlogById(id, localStorage.getItem('accessToken'));
-      // Redirect to the blog list page or handle as needed
+      await blogApi.deleteBlogById(id, getAccessTokenSilently);
     } catch (error) {
       console.error('Error deleting blog:', error);
     }
@@ -48,14 +49,16 @@ const BlogView = () => {
           </p>
           <p className='blog-view_likes'>Likes: {blog.likes}</p>
 
-          <section className='blog-view_buttons-container'>
-            <Link to={`/edit/${blog.id}`}>
-              <button className='blog-view_button edit'>Edit</button>
-            </Link>
-            <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>
-              Delete
-            </button>
-          </section>
+          {isAuthenticated && user.name === blog.user_Name && (
+            <section className='blog-view_buttons-container'>
+              <Link to={`/edit/${blog.id}`}>
+                <button className='blog-view_button edit'>Edit</button>
+              </Link>
+              <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>
+                Delete
+              </button>
+            </section>
+          )}
 
           <PostList posts={blog.posts} />
 
