@@ -1,12 +1,20 @@
-// Navbar.js
-
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import userapi from '../api/userApi'; // import the userapi module
 import './navbar.css';
 
 const Navbar = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+
+  const handleRegister = () => {
+    loginWithRedirect({authorizationParams: {
+      screen_hint: "signup",
+    }})
+    if (isAuthenticated) {
+      userapi.register(user);
+    }
+  };
 
   return (
     <nav>
@@ -34,22 +42,20 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className='navbar-user-info'>
-              <a>Welcome, {user && user.nickname}</a>
+              <p>Welcome, {user && user.nickname}</p>
             </li>
             <li>
-              <a className='link-button' onClick={() => logout({ returnTo: window.location.origin })}>Logout</a>
+              <a href='/' className='link-button' onClick={() => logout({ returnTo: window.location.origin })}>Logout</a>
             </li>
           </>
         )}
         {!isAuthenticated && (
           <>
             <li className='navbar-button_login'>
-              <a className='link-button' onClick={() => loginWithRedirect()}>Login</a>
+              <a href='/' className='link-button' onClick={() => loginWithRedirect()}>Login</a>
             </li>
             <li className='navbar-button_register'>
-              <NavLink to="/register">
-                Register
-              </NavLink>
+              <a href='/' className='link-button' onClick={(handleRegister)}>Register</a>
             </li>
           </>
         )}
