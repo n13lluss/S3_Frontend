@@ -28,9 +28,7 @@ const BlogCreate = ({ onSubmit }) => {
       const accessToken = await getAccessTokenSilently();
       const result = await blogApi.createBlog(formData, accessToken);
       console.log(result);
-      setTimeout(() => {
-        navigate('/blogs');
-      }, 2500); // Adjust delay time as needed
+      navigate(`/blog/${result.id}`);
     } catch (error) {
       console.error('Error creating blog:', error);
     }

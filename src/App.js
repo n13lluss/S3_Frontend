@@ -19,7 +19,6 @@ function App() {
       if (isAuthenticated) {
         try {
           const token = await getAccessTokenSilently();
-          console.log('Access Token:', token);
         } catch (error) {
           console.error('Error getting access token:', error);
         }
