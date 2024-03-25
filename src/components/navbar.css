@@ -27,18 +27,29 @@ nav {
   margin-right: 1rem;
 }
 
-.navbar-links a {
+.link-button {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: none;
+  size: inherit;
+}
+
+.navbar-links a, .link-button{
   text-decoration: none;
   color: #e6f7ff;  /* Use a sea-themed blue color for text (#006D77) */
   padding: 0.5rem;
   display: inline;
   transition: background-color 0.3s ease;
   border-radius: 15px;
+  display: block;
 }
 
-.navbar-links a:hover {
+.navbar-links a:hover,
+.link-button:hover {
   background-color: #205c6e; /* Slightly darker color on hover (within the color scheme) */
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .navbar-links.show {
