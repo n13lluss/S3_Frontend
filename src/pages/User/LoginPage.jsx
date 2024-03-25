@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Updated import
+import { useNavigate } from 'react-router-dom';
 import userApi from '../../api/userApi';
 import './loginpage.css';
+import bcrypt from 'bcryptjs';
 
 const LoginPage = () => {
-  const navigate = useNavigate();  // Updated hook
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     usernameEmail: '',
     password: '',
@@ -17,16 +18,17 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      // Call the login API endpoint
-      await userApi.login(formData);
-      // Navigate to the home page after a successful login
+      const hashedPassword = await bcrypt.hash(formData.password, 10); // Hash the password before sending it to the backend
+      const dataToSend = { ...formData, password: hashedPassword }; // Replace the plain text password with the hashed one
+      await userApi.login(dataToSend);
       navigate('/');
     } catch (error) {
       console.error('Login failed:', error);
     }
   };
+  
 
   return (
     <div className="login-page">

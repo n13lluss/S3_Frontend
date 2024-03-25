@@ -1,7 +1,5 @@
 import api from './api';
 
-
-
 const blogApi = {
   getAllBlogs: async (token) => {
     try {
