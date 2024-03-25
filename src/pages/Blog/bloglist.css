@@ -1,5 +1,3 @@
-/* blog.css */
-
 .blog-page_container {
     display: flex;
     height: 100%;
@@ -21,10 +19,11 @@
     display: grid;
     gap: 1rem;
     width: 100%;
+    overflow-y: auto;
+    grid-template-columns: repeat(auto-fill, minmax(calc(100% - 1rem), 1fr));
 }
 
 .blog-post_container {
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.25em;
