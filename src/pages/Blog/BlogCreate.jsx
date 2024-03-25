@@ -5,12 +5,13 @@ import './blogcreate.css';
 import blogApi from '../../api/blogApi';
 
 const BlogCreate = ({ onSubmit }) => {
+  const { user } = useAuth0();
   const navigate = useNavigate();
   const { getAccessTokenSilently } = useAuth0(); // Destructure getAccessTokenSilently from useAuth0 hook
   const [formData, setFormData] = useState({
+    userName: `${user.name}`,
     name: '',
     description: '',
-    // Add other fields as needed
   });
 
   const handleChange = (e) => {
