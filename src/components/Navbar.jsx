@@ -34,17 +34,17 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className='navbar-user-info'>
-              <p>Welcome, {user && user.nickname}</p>
+              <a>Welcome, {user && user.nickname}</a>
             </li>
             <li>
-              <button onClick={() => logout({ returnTo: window.location.origin })}>Logout</button>
+              <a className='link-button' onClick={() => logout({ returnTo: window.location.origin })}>Logout</a>
             </li>
           </>
         )}
         {!isAuthenticated && (
           <>
             <li className='navbar-button_login'>
-              <button onClick={() => loginWithRedirect()}>Login</button>
+              <a className='link-button' onClick={() => loginWithRedirect()}>Login</a>
             </li>
             <li className='navbar-button_register'>
               <NavLink to="/register">
