@@ -1,61 +1,53 @@
-import React, { useState } from 'react';
+// Navbar.js
+
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { isLoggedIn } from '../api/userApi';
+import { useAuth0 } from '@auth0/auth0-react';
 import './navbar.css';
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(isLoggedIn());
-  const [showDropdown, setShowDropdown] = useState(false);
-
-  const handleNavLinkClick = () => {
-    // Reload the page when a NavLink is clicked
-    setLoggedIn(isLoggedIn());
-    setShowDropdown(false);
-  };
-
-  const handleDropdownToggle = () => {
-    setShowDropdown(!showDropdown);
-  };
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   return (
     <nav>
       <div className="navbar-header">
-        <button className="navbar-toggler" onClick={handleDropdownToggle}>
+        <button className="navbar-toggler">
           ☰
         </button>
       </div>
-      <ul className={`navbar-links ${showDropdown ? 'show' : ''}`}>
+      <ul className="navbar-links">
         <li>
-          <NavLink to="/" onClick={handleNavLinkClick}>
+          <NavLink to="/">
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink to="/blogs" onClick={handleNavLinkClick}>
+          <NavLink to="/blogs">
             Blog List
           </NavLink>
         </li>
-        {loggedIn && (
+        {isAuthenticated && (
           <>
             <li className='navbar-button_create-post'>
-              <NavLink to="/create" onClick={handleNavLinkClick}>
+              <NavLink to="/create">
                 Create Blog
               </NavLink>
             </li>
             <li className='navbar-user-info'>
-              <p>Welcome, User</p>
+              <p>Welcome, {user && user.nickname}</p>
+            </li>
+            <li>
+              <button onClick={() => logout({ returnTo: window.location.origin })}>Logout</button>
             </li>
           </>
         )}
-        {!loggedIn && (
+        {!isAuthenticated && (
           <>
             <li className='navbar-button_login'>
-              <NavLink to="/login" onClick={handleNavLinkClick}>
-                Login
-              </NavLink>
+              <button onClick={() => loginWithRedirect()}>Login</button>
             </li>
             <li className='navbar-button_register'>
-              <NavLink to="/register" onClick={handleNavLinkClick}>
+              <NavLink to="/register">
                 Register
               </NavLink>
             </li>
