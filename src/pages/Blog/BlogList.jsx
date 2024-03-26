@@ -1,30 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import blogApi from '../../api/blogApi';
 import './bloglist.css';
 
 const BlogList = () => {
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const fetchedBlogs = await blogApi.getAllBlogs();
-        const sortedBlogs = fetchedBlogs.sort((a, b) => new Date(b.posted_On) - new Date(a.posted_On));
-
-        setBlogs(sortedBlogs);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching blogs:', error);
-        setError(error);
-        setLoading(false);
+  const handleLike = async (id) => {
+    try {
+      const token = await getAccessTokenSilently();
+      if (user) {
+        await blogApi.likeBlog(id, token, user.name);
+        // Reload the blog list after liking
+        fetchBlogs();
+      } else {
+        console.error('User is not defined');
       }
-    };
+    } catch (error) {
+      console.error('Error liking blog:', error);
+    }
+  };
 
+  const fetchBlogs = async () => {
+    try {
+      var fetchedBlogs;
+      if (isAuthenticated) {
+        fetchedBlogs = await blogApi.getAllBlogs(user.name);
+      } else {
+        fetchedBlogs = await blogApi.getAllBlogs();
+      }
+      const sortedBlogs = fetchedBlogs.sort(
+        (a, b) => new Date(b.posted_On) - new Date(a.posted_On)
+      );
+      setBlogs(sortedBlogs);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching blogs:', error);
+      setError(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchBlogs();
-  }, []);
+  });
 
   return (
     <div className='blog-page_container'>
@@ -33,8 +56,8 @@ const BlogList = () => {
       {loading && <p className='blog-page_loading-text'>Loading blogs...</p>}
 
       {error && (
-        <div>
-          <p className='blog-page_error-text'>Error fetching blogs. Please try again later.</p>
+        <div className='blog-page_error-text'>
+          Error fetching blogs. Please try again later.
           {/* You can provide more detailed error information if needed */}
           <p>{error.message}</p>
         </div>
@@ -42,15 +65,28 @@ const BlogList = () => {
 
       {!loading && !error && (
         <section className='blog-page_post-container'>
-          {blogs.map(blog => (
+          {blogs.map((blog) => (
             <div className='blog-post_container' key={blog.id}>
               <h3 className='blog-post_name'>{blog.name}</h3>
               <p className='blog-post_description'>{blog.description}</p>
-              <p className='blog-post_posted'>Posted by {blog.user_Name} on {new Date(blog.posted_On).toLocaleString()}</p>
+              <p className='blog-post_posted'>
+                Posted by {blog.user_Name} on{' '}
+                {new Date(blog.posted_On).toLocaleString()}
+              </p>
               <p className='blog-post_likes'>Likes: {blog.likes}</p>
-              <Link to={`/blogs/${blog.id}`}>
-                <button className='blog-post_visit'>Visit Blog</button>
-              </Link>
+              <section className='blog_post-buttons-container'>
+                <Link to={`/blogs/${blog.id}`}>
+                  <button className='blog-post_visit'>Visit Blog</button>
+                </Link>
+                {isAuthenticated && (
+                  <button
+                    onClick={() => handleLike(blog.id)}
+                    className='blog-post_visit'
+                  >
+                    {blog.liked ? 'Unlike blog' : 'Like blog'}
+                  </button>
+                )}
+              </section>
             </div>
           ))}
         </section>

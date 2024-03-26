@@ -14,6 +14,38 @@
     font-size: 2rem;
 }
 
+.blog_post-buttons-container {
+    display: flex; /* Use flexbox to control the layout */
+    justify-content: space-between; /* Distribute space evenly between buttons */
+    align-items: center; /* Align buttons vertically in the center */
+    gap: 1rem;
+  }
+  
+  .blog_post-buttons-container button {
+    flex-grow: 1; /* Each button will grow to take up equal space */
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s; /* Add transition for smooth hover effect */
+  }
+
+    .blog_post-buttons-container button:hover {
+        background-color: var(--button-hover);
+    }
+
+    .blog_post-buttons-container a {
+        flex-grow: 4;
+        display: flex;
+        text-decoration: none;
+    }
+
+    .blog_post-buttons-container a button{
+        flex: 4;
+    }
+  
 .blog-page_post-container {
     padding: 0.5rem;
     display: grid;

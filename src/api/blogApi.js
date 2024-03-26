@@ -2,14 +2,20 @@ import api from './api';
 
 const blogApi = {
  
-  getAllBlogs: async () => {
+  getAllBlogs: async (username) => {
     try {
-      const response = await api.Blog.get('/');
+      var response;
+      if (username) {
+        response = await api.Blog.get('/', username);
+      }else{
+        response = await api.Blog.get('/');
+      }
       return response.data;
     } catch (error) {
       handleApiError(error);
     }
   },
+  
 
   getBlogById: async (id) => {
     try {
@@ -19,7 +25,6 @@ const blogApi = {
       return error.response;
     }
   },
-  
 
   createBlog: async (formData, token) => {
     try {
@@ -59,7 +64,22 @@ const blogApi = {
       handleApiError(error);
     }
   },
+
+  likeBlog: async (id, token, username) => {
+    try {
+        const response = await api.Blog.put(`/${id}/like`, `"${username}"`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        handleApiError(error);
+    }
+  },
 };
+
 
 const handleApiError = (error) => {
   if (error.response && error.response.status === 401) {

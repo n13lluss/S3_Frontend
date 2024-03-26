@@ -13,7 +13,7 @@ root.render(
       clientId="jWnWVmMDm14stl7bj8H3dcwns6O4IyXw"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE
       }}
     >
       <App />
