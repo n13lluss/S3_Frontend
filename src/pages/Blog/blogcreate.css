@@ -1,5 +1,5 @@
 .blog-create_page {
-  height: 100%;
+  height: 100dvh;
   background-color: var(--background-light); /* Lighter background color for the container (EDF6F9) */
   padding: 1rem;
 }

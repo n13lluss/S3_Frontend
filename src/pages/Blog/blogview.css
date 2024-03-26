@@ -1,6 +1,6 @@
 .blog-view_page {
     background-color: var(--background-light);
-    height: 100%;
+    height: 100dvh;
 }
 
 .blog-view_return-list {
@@ -29,6 +29,12 @@
     border: 1px solid var(--accent-color);
     background-color: var(--bakcground-component);
     border-radius: 10px;
+}
+
+.blog-view_description{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .blog-view_name {

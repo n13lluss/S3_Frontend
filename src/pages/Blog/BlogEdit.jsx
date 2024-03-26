@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import blogApi from '../../api/blogApi';
 import './blogedit.css';
 
 const BlogEdit = () => {
+  const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
   const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
@@ -16,10 +18,10 @@ const BlogEdit = () => {
     const fetchBlog = async () => {
       try {
         const response = await blogApi.getBlogById(id);
-        setBlog(response);
+        setBlog(response.data);
         setFormData({
-          name: response?.name || '',
-          description: response?.description || '',
+          name: response?.data.name || '',
+          description: response?.data.description || '',
         });
       } catch (error) {
         console.error('Error fetching blog:', error);
@@ -37,12 +39,11 @@ const BlogEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('accessToken'); // Get the token from your authentication system
+      const token = await getAccessTokenSilently();
       await blogApi.updateBlogById(id, formData, token);
       navigate(`/blogs/${id}`);
     } catch (error) {
       console.error('Error updating blog:', error);
-      // Handle the error, show a message, or perform other actions
     }
   };
 

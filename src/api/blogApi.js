@@ -1,13 +1,10 @@
 import api from './api';
 
 const blogApi = {
-  getAllBlogs: async (token) => {
+ 
+  getAllBlogs: async () => {
     try {
-      const response = await api.Blog.get('/', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.Blog.get('/');
       return response.data;
     } catch (error) {
       handleApiError(error);
@@ -17,11 +14,12 @@ const blogApi = {
   getBlogById: async (id) => {
     try {
       const response = await api.Blog.get(`/${id}`);
-      return response.data;
+      return response;
     } catch (error) {
-      handleApiError(error);
+      return error.response;
     }
   },
+  
 
   createBlog: async (formData, token) => {
     try {

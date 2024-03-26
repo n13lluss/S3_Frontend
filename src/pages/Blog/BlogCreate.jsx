@@ -5,12 +5,13 @@ import './blogcreate.css';
 import blogApi from '../../api/blogApi';
 
 const BlogCreate = ({ onSubmit }) => {
+  const { user } = useAuth0();
   const navigate = useNavigate();
   const { getAccessTokenSilently } = useAuth0(); // Destructure getAccessTokenSilently from useAuth0 hook
   const [formData, setFormData] = useState({
+    userName: `${user.name}`,
     name: '',
     description: '',
-    // Add other fields as needed
   });
 
   const handleChange = (e) => {
@@ -20,16 +21,11 @@ const BlogCreate = ({ onSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-    console.log(await getAccessTokenSilently()); // Log the access token to the console
-
     try {
       // Get access token from Auth0
       const accessToken = await getAccessTokenSilently();
       const result = await blogApi.createBlog(formData, accessToken);
-      console.log(result);
-      setTimeout(() => {
-        navigate('/blogs');
-      }, 2500); // Adjust delay time as needed
+      navigate(`/blogs/${result.id}`);
     } catch (error) {
       console.error('Error creating blog:', error);
     }
