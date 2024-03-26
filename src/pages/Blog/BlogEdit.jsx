@@ -18,10 +18,10 @@ const BlogEdit = () => {
     const fetchBlog = async () => {
       try {
         const response = await blogApi.getBlogById(id);
-        setBlog(response);
+        setBlog(response.data);
         setFormData({
-          name: response?.name || '',
-          description: response?.description || '',
+          name: response?.data.name || '',
+          description: response?.data.description || '',
         });
       } catch (error) {
         console.error('Error fetching blog:', error);
@@ -44,7 +44,6 @@ const BlogEdit = () => {
       navigate(`/blogs/${id}`);
     } catch (error) {
       console.error('Error updating blog:', error);
-      // Handle the error, show a message, or perform other actions
     }
   };
 

@@ -11,23 +11,20 @@ const BlogList = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const token = localStorage.getItem("token")
-        const fetchedBlogs = await blogApi.getAllBlogs(token);
-
-        // Sort blogs by posted_On in descending order
+        const fetchedBlogs = await blogApi.getAllBlogs();
         const sortedBlogs = fetchedBlogs.sort((a, b) => new Date(b.posted_On) - new Date(a.posted_On));
 
         setBlogs(sortedBlogs);
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching blogs:', error);
         setError(error);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       }
     };
 
     fetchBlogs();
-  }, []); // Empty dependency array to run the effect once on mount
+  }, []);
 
   return (
     <div className='blog-page_container'>
@@ -51,8 +48,6 @@ const BlogList = () => {
               <p className='blog-post_description'>{blog.description}</p>
               <p className='blog-post_posted'>Posted by {blog.user_Name} on {new Date(blog.posted_On).toLocaleString()}</p>
               <p className='blog-post_likes'>Likes: {blog.likes}</p>
-
-              {/* Visit Blog button */}
               <Link to={`/blogs/${blog.id}`}>
                 <button className='blog-post_visit'>Visit Blog</button>
               </Link>

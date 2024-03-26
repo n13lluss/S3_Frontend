@@ -2,13 +2,9 @@ import api from './api';
 
 const blogApi = {
  
-  getAllBlogs: async (token) => {
+  getAllBlogs: async () => {
     try {
-      const response = await api.Blog.get('/', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await api.Blog.get('/');
       return response.data;
     } catch (error) {
       handleApiError(error);
