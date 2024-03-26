@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import blogApi from '../../api/blogApi';
 import './blogedit.css';
 
 const BlogEdit = () => {
+  const { getAccessTokenSilently } = useAuth0();
   const { id } = useParams();
   const navigate = useNavigate();
   const [blog, setBlog] = useState(null);
@@ -37,7 +39,7 @@ const BlogEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('accessToken'); // Get the token from your authentication system
+      const token = await getAccessTokenSilently();
       await blogApi.updateBlogById(id, formData, token);
       navigate(`/blogs/${id}`);
     } catch (error) {

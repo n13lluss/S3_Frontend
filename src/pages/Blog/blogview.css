@@ -31,6 +31,12 @@
     border-radius: 10px;
 }
 
+.blog-view_description{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
 .blog-view_name {
     color: var(--title-color);
 }

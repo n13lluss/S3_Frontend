@@ -28,7 +28,8 @@ const BlogView = () => {
 
   const handleDelete = async () => {
     try {
-      await blogApi.deleteBlogById(id, getAccessTokenSilently);
+      const token = await getAccessTokenSilently();
+      await blogApi.deleteBlogById(id, token);
     } catch (error) {
       console.error('Error deleting blog:', error);
     }

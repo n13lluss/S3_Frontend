@@ -21,14 +21,11 @@ const BlogCreate = ({ onSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-    console.log(await getAccessTokenSilently()); // Log the access token to the console
-
     try {
       // Get access token from Auth0
       const accessToken = await getAccessTokenSilently();
       const result = await blogApi.createBlog(formData, accessToken);
-      console.log(result);
-      navigate(`/blog/${result.id}`);
+      navigate(`/blogs/${result.id}`);
     } catch (error) {
       console.error('Error creating blog:', error);
     }
