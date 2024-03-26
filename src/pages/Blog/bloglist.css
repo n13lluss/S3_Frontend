@@ -1,6 +1,6 @@
 .blog-page_container {
     display: flex;
-    height: 100%;
+    height: 100dvh;
     flex-direction: column;
     align-items: center;
     padding: 1rem;

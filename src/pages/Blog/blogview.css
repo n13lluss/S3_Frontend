@@ -1,6 +1,6 @@
 .blog-view_page {
     background-color: var(--background-light);
-    height: 100%;
+    height: 100dvh;
 }
 
 .blog-view_return-list {

@@ -1,5 +1,5 @@
 .blog-edit_page {
-  height: 100%;
+  height: 100dvh;
   background-color: var(--bac); /* Lighter background color for the container (EDF6F9) */
   padding: 1rem;
 }
