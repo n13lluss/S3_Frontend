@@ -1,13 +1,13 @@
 import api from './api';
 
 const blogApi = {
-  getAllBlogs: async (username) => {
+  getAllBlogs: async (idString) => {
     try {
       var response;
-      if (username!=="" && username!==null && username!==undefined) {
+      if (idString!=="" && idString!==null && idString!==undefined) {
         response = await api.Blog.get('/', {
           params: {
-            username: username
+            idString: idString
           }
         });
       }else{

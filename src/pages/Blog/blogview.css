@@ -1,6 +1,6 @@
 .blog-view_page {
     background-color: var(--background-light);
-    height: auto;
+    height: 100%;
 }
 
 .blog-view_return-list {
@@ -103,6 +103,6 @@
         align-self: flex-start;
     }
     .blog-view_page{
-        height: auto;
+        height: 100%;
     }
 }

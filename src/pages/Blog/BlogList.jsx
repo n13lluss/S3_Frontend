@@ -11,10 +11,10 @@ const BlogList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const handleLike = async (id, username, liked) => {
+  const handleLike = async (id, idString, liked) => {
     try {
       const token = await getAccessTokenSilently();
-      await blogApi.likeBlog(id, token, username);
+      await blogApi.likeBlog(id, token, idString);
       // Refetch blogs after a successful like
       fetchBlogs();
     } catch (error) {
@@ -28,7 +28,7 @@ const BlogList = () => {
       const authentication = isAuthenticated;
       setTimeout(async () => {
         if (authentication) {
-          fetchedBlogs = await blogApi.getAllBlogs(user.name);
+          fetchedBlogs = await blogApi.getAllBlogs(user.sub);
         } else {
           fetchedBlogs = await blogApi.getAllBlogs();
         }

@@ -67,7 +67,7 @@ const BlogView = () => {
           </p>
           <p className='blog-view_likes'>Likes: {blog.likes}</p>
 
-          {isAuthenticated && user.name === blog.user_Name && (
+          {isAuthenticated && user.sub === blog.creator_Id   && (
             <>
               <section className='blog-view_buttons-container'>
                 <Link to={`/edit/${blog.id}`}>
@@ -83,10 +83,11 @@ const BlogView = () => {
           <div className='blog-view_posts-container'> {/* Container for posts */}
             <PostList posts={blog.posts} />
           </div>
-
-          <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>
+          {isAuthenticated && user.sub === blog.creator_Id && (
+            <button className='blog-view_button delete' onClick={() => setShowDeleteModal(true)}>
             Delete Blog
           </button>
+          )}
           {/* Render the modals */}
           <Modal
             isOpen={showDeleteModal}
