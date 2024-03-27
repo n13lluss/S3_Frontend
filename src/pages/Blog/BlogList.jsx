@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import { GetUsername } from '../../Middleware/UserMiddleware';
 import blogApi from '../../api/blogApi';
 import './bloglist.css';
 
@@ -10,16 +11,12 @@ const BlogList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const handleLike = async (id) => {
+  const handleLike = async (id, username, liked) => {
     try {
       const token = await getAccessTokenSilently();
-      if (user) {
-        await blogApi.likeBlog(id, token, user.name);
-        // Reload the blog list after liking
-        fetchBlogs();
-      } else {
-        console.error('User is not defined');
-      }
+      await blogApi.likeBlog(id, token, username);
+      // Refetch blogs after a successful like
+      fetchBlogs();
     } catch (error) {
       console.error('Error liking blog:', error);
     }
@@ -27,17 +24,20 @@ const BlogList = () => {
 
   const fetchBlogs = async () => {
     try {
-      var fetchedBlogs;
-      if (isAuthenticated) {
-        fetchedBlogs = await blogApi.getAllBlogs(user.name);
-      } else {
-        fetchedBlogs = await blogApi.getAllBlogs();
-      }
-      const sortedBlogs = fetchedBlogs.sort(
-        (a, b) => new Date(b.posted_On) - new Date(a.posted_On)
-      );
-      setBlogs(sortedBlogs);
-      setLoading(false);
+      let fetchedBlogs;
+      const authentication = isAuthenticated;
+      setTimeout(async () => {
+        if (authentication) {
+          fetchedBlogs = await blogApi.getAllBlogs(user.name);
+        } else {
+          fetchedBlogs = await blogApi.getAllBlogs();
+        }
+        const sortedBlogs = fetchedBlogs.sort(
+          (a, b) => new Date(b.posted_On) - new Date(a.posted_On)
+        );
+        setBlogs(sortedBlogs);
+        setLoading(false);
+      }, 200);
     } catch (error) {
       console.error('Error fetching blogs:', error);
       setError(error);
@@ -46,8 +46,11 @@ const BlogList = () => {
   };
 
   useEffect(() => {
+    if (isAuthenticated) {
+      fetchBlogs();
+    }
     fetchBlogs();
-  });
+  }, [isAuthenticated]); // Fetch blogs again when authentication status changes
 
   return (
     <div className='blog-page_container'>
@@ -80,8 +83,8 @@ const BlogList = () => {
                 </Link>
                 {isAuthenticated && (
                   <button
-                    onClick={() => handleLike(blog.id)}
-                    className='blog-post_visit'
+                    onClick={async () => handleLike(blog.id, (user.username || user.name), blog.liked)}
+                    className={`blog-post_visit ${blog.liked ? 'unlike-button' : 'like-button'}`}
                   >
                     {blog.liked ? 'Unlike blog' : 'Like blog'}
                   </button>

@@ -1,0 +1,63 @@
+.post-creation-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for blur effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .post-creation-modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .post-creation-modal-content input,
+  .post-creation-modal-content textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .post-creation-modal-content textarea {
+    height: 100px;
+  }
+  
+  .post-creation-modal-content .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .post-creation-modal-content button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .post-creation-modal-content button.create-post {
+    background-color: #007bff; /* Blue color for create post button */
+    color: #fff;
+  }
+  
+  .post-creation-modal-content button.create-post:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .post-creation-modal-content button.cancel {
+    background-color: #6c757d; /* Gray color for cancel button */
+    color: #fff;
+  }
+  
+  .post-creation-modal-content button.cancel:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+  }

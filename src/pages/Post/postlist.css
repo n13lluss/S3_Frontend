@@ -8,8 +8,12 @@
     color: var(--title-color);
     padding: 1rem;
     border: 1px solid var(--accent-color);
-    background-color: var(--background-component);
+    background-color: var(--background-light);
     border-radius: 10px;
+}
+
+.blog-view_post:hover {
+    border: solid 3px red;
 }
 
 .blog-view_post h3 {
@@ -20,4 +24,10 @@
 .blog-view_post p {
     color: var(--text-extras);
     margin-bottom: 10px;
+}
+
+@media screen and (min-width: 600px){
+    .blog-view_posts {
+        height: auto;
+    }
 }

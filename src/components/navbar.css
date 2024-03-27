@@ -5,6 +5,8 @@ nav {
   padding: 1rem;
   background-color: #004051; /* Dark background color */
   color: #cfe4e9; /* Light text color */
+  position: sticky;
+  top: 0;
 }
 
 .navbar-toggler {
