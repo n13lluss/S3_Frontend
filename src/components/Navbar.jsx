@@ -7,23 +7,18 @@ import './navbar.css';
 const Navbar = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
   const [showLinks, setShowLinks] = useState(false);
-  const [username, setUsername] = useState(null); // State to hold username
+  const [username, setUsername] = useState(null);
 
   useEffect(() => {
     const fetchUsername = async () => {
       if (isAuthenticated) {
-        const fetchedUsername = await getUsername(); // Call a regular function to fetch the username
+        const fetchedUsername = user.username || user.name;
         setUsername(fetchedUsername);
       }
     };
 
     fetchUsername();
-  }, [isAuthenticated]); // Run effect when isAuthenticated changes
-
-  const getUsername = async () => {
-    // Implement the logic to fetch the username here
-    // This function should not contain any hooks
-  };
+  }, [isAuthenticated, user.username, user.name]);
 
   const handleRegister = () => {
     loginWithRedirect({
@@ -32,7 +27,7 @@ const Navbar = () => {
       }
     });
     if (isAuthenticated) {
-      userapi.createUser({ name: (user.username || user.name), email: user.email });
+      userapi.createUser({ name: (user.username || user.name), email: user.email, idString: user.sub });
     }
   };
 

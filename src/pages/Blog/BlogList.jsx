@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import { GetUsername } from '../../Middleware/UserMiddleware';
 import blogApi from '../../api/blogApi';
 import './bloglist.css';
 
@@ -24,7 +23,7 @@ const BlogList = () => {
 
   const fetchBlogs = async () => {
     try {
-      let fetchedBlogs;
+      let fetchedBlogs = [];
       const authentication = isAuthenticated;
       setTimeout(async () => {
         if (authentication) {
@@ -32,8 +31,13 @@ const BlogList = () => {
         } else {
           fetchedBlogs = await blogApi.getAllBlogs();
         }
+        if (!fetchedBlogs) {
+          setLoading(false);
+          setError(new Error('No blogs found'));
+          return;
+        }
         const sortedBlogs = fetchedBlogs.sort(
-          (a, b) => new Date(b.posted_On) - new Date(a.posted_On)
+          (a, b) => new Date(b.posted_On) - new Date(a.posted_On) 
         );
         setBlogs(sortedBlogs);
         setLoading(false);
