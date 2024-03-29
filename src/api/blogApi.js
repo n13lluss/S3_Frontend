@@ -70,7 +70,7 @@ const blogApi = {
 
   likeBlog: async (id, token, username) => {
     try {
-        const response = await api.Blog.put(`/${id}/like`, `"${username}"`, {
+        const response = await api.Blog.post(`/${id}/like`, `"${username}"`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
