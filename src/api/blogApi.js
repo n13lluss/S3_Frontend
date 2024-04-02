@@ -1,18 +1,21 @@
 import api from './api';
 
 const blogApi = {
- 
-  getAllBlogs: async (username) => {
+  getAllBlogs: async (idString) => {
     try {
       var response;
-      if (username) {
-        response = await api.Blog.get('/', username);
+      if (idString!=="" && idString!==null && idString!==undefined) {
+        response = await api.Blog.get('/', {
+          params: {
+            idString: idString
+          }
+        });
       }else{
         response = await api.Blog.get('/');
       }
       return response.data;
     } catch (error) {
-      handleApiError(error);
+      console.error('Error fetching blogs:', error);
     }
   },
   
@@ -22,7 +25,7 @@ const blogApi = {
       const response = await api.Blog.get(`/${id}`);
       return response;
     } catch (error) {
-      return error.response;
+      console.error('Error fetching blog:', error);
     }
   },
 
@@ -35,7 +38,7 @@ const blogApi = {
       });
       return response.data;
     } catch (error) {
-      handleApiError(error);
+      console.error('Error creating blog:', error);
     }
   },
 
@@ -48,7 +51,7 @@ const blogApi = {
       });
       return response.data;
     } catch (error) {
-      handleApiError(error);
+      console.error('Error updating blog:', error)
     }
   },
 
@@ -61,13 +64,13 @@ const blogApi = {
       });
       return response.data;
     } catch (error) {
-      handleApiError(error);
+      console.error('Error deleting blog:', error)
     }
   },
 
   likeBlog: async (id, token, username) => {
     try {
-        const response = await api.Blog.put(`/${id}/like`, `"${username}"`, {
+        const response = await api.Blog.post(`/${id}/like`, `"${username}"`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -75,19 +78,9 @@ const blogApi = {
         });
         return response.data;
     } catch (error) {
-        handleApiError(error);
+        console.error('Error liking blog:', error);
     }
   },
-};
-
-
-const handleApiError = (error) => {
-  if (error.response && error.response.status === 401) {
-    // Clear the token from localStorage if the response status is 401
-    localStorage.removeItem('accessToken');
-    window.location.reload();
-  }
-  throw error;
 };
 
 export default blogApi;

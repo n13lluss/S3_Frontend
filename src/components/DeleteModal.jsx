@@ -2,14 +2,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
-import './modal.css';
+import { useAuth0 } from '@auth0/auth0-react';
+import './deletemodal.css';
 
 const Modal = ({ isOpen, onClose, onDelete, postId, blogName }) => {
   const navigate = useNavigate();
+  const { getAccessTokenSilently } = useAuth0();
 
   const handleDelete = async () => {
     try {
-      const token = localStorage.getItem('accessToken');
+      const token = await getAccessTokenSilently();
       await onDelete(postId, token);
       navigate('/blogs');
     } catch (error) {
