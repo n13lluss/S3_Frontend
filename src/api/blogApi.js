@@ -11,6 +11,7 @@ const blogApi = {
           }
         });
       }else{
+        console.log("No idString");
         response = await api.Blog.get('/');
       }
       return response.data;

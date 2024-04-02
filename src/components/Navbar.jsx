@@ -12,7 +12,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       if (isAuthenticated) {
-        const fetchedUsername = user?.username || user?.name;
+        const fetchedUsername = user?.username ?? user?.nickname ?? user?.name ?? null;
         setUsername(fetchedUsername);
       }
     };
@@ -20,16 +20,27 @@ const Navbar = () => {
     fetchUsername();
   }, [isAuthenticated, user]);
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     loginWithRedirect({
       authorizationParams: {
         screen_hint: "signup",
       }
     });
-    if (isAuthenticated) {
-      userapi.createUser({ name: (user?.username || user?.name), email: user?.email });
-    }
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const createUser = async () => {
+        try {
+          await userapi.createUser({ name: (user?.username || user?.name), email: user?.email, IdString: user?.sub });
+          console.log("User created successfully");
+        } catch (error) {
+          console.error("Error creating user:", error);
+        }
+      };
+      createUser();
+    }
+  }, [isAuthenticated, user]);
 
   return (
     <nav>

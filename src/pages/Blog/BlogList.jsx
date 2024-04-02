@@ -10,48 +10,63 @@ const BlogList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const handleLike = async (id, idString, liked) => {
-    try {
-      const token = await getAccessTokenSilently();
-      await blogApi.likeBlog(id, token, idString);
-      // Refetch blogs after a successful like
-      fetchBlogs();
-    } catch (error) {
-      console.error('Error liking blog:', error);
-    }
-  };
-
   const fetchBlogs = useCallback(async () => {
     try {
+      setLoading(true);
       let fetchedBlogs = [];
-      setTimeout(async () => {
-        if (isAuthenticated && user && user.sub) {
-          fetchedBlogs = await blogApi.getAllBlogs(user.sub);
-        } else {
-          fetchedBlogs = await blogApi.getAllBlogs();
-        }
-        if (!fetchedBlogs) {
-          setLoading(false);
-          setError(new Error('No blogs found'));
-          return;
-        }
-        const sortedBlogs = fetchedBlogs.sort(
-          (a, b) => new Date(b.posted_On) - new Date(a.posted_On) 
-        );
-        setBlogs(sortedBlogs);
+      if (isAuthenticated && user && user.sub) {
+        fetchedBlogs = await blogApi.getAllBlogs(user.sub);
+      } else {
+        fetchedBlogs = await blogApi.getAllBlogs();
+      }
+      if (!fetchedBlogs) {
         setLoading(false);
-      }, 200);
+        setError(new Error('No blogs found'));
+        return;
+      }
+      const sortedBlogs = fetchedBlogs.sort(
+        (a, b) => new Date(b.posted_On) - new Date(a.posted_On)
+      );
+      setBlogs(sortedBlogs);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching blogs:', error);
       setError(error);
       setLoading(false);
     }
-  }, [isAuthenticated, user]); // Include user in the dependency array
+  }, [isAuthenticated, user]);
 
   useEffect(() => {
     fetchBlogs();
   }, [fetchBlogs]);
 
+  const handleLike = async (id, idString, liked) => {
+    try {
+      const token = await getAccessTokenSilently();
+      await blogApi.likeBlog(id, token, idString);
+      // Update the local state of the liked status and likes count
+      setBlogs(prevBlogs =>
+        prevBlogs.map(blog => {
+          if (blog.id === id) {
+            return { ...blog, liked: !liked, likes: liked ? blog.likes - 1 : blog.likes + 1 }; // Update likes count based on previous liked status
+          }
+          return blog;
+        })
+      );
+    } catch (error) {
+      console.error('Error liking blog:', error);
+      // Revert the local state if the like operation fails
+      setBlogs(prevBlogs =>
+        prevBlogs.map(blog => {
+          if (blog.id === id) {
+            return { ...blog, liked: liked }; // Revert the liked status
+          }
+          return blog;
+        })
+      );
+    }
+  };
+  
   return (
     <div className='blog-page_container'>
       <h2 className='blog-page_title'>Blogs</h2>
@@ -83,8 +98,9 @@ const BlogList = () => {
                 </Link>
                 {isAuthenticated && (
                   <button
-                    onClick={async () => handleLike(blog.id, (user.username || user.name), blog.liked)}
+                    onClick={async () => handleLike(blog.id, user.sub, blog.liked)}
                     className={`blog-post_visit ${blog.liked ? 'unlike-button' : 'like-button'}`}
+                    disabled={!isAuthenticated} // Disable the button if not authenticated
                   >
                     {blog.liked ? 'Unlike blog' : 'Like blog'}
                   </button>
