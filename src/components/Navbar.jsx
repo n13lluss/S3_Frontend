@@ -12,13 +12,13 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       if (isAuthenticated) {
-        const fetchedUsername = user.username || user.name; // Call a regular function to fetch the username
+        const fetchedUsername = user?.username || user?.name;
         setUsername(fetchedUsername);
       }
     };
 
     fetchUsername();
-  }, [isAuthenticated]); // Run effect when isAuthenticated changes
+  }, [isAuthenticated, user]);
 
   const handleRegister = () => {
     loginWithRedirect({
@@ -27,7 +27,7 @@ const Navbar = () => {
       }
     });
     if (isAuthenticated) {
-      userapi.createUser({ name: (user.username || user.name), email: user.email });
+      userapi.createUser({ name: (user?.username || user?.name), email: user?.email });
     }
   };
 
