@@ -2,8 +2,7 @@ import api from './api';
 
 const userApi = {
   createUser: async (userData) => {
-    console.log(userData);
-    try {
+   try {
       const response = await api.User.post('/Register', {
         name: userData.name,
         email: userData.email,

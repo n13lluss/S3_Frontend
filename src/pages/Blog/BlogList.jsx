@@ -67,7 +67,6 @@ const BlogList = () => {
     }
   };
   
-
   return (
     <div className='blog-page_container'>
       <h2 className='blog-page_title'>Blogs</h2>
