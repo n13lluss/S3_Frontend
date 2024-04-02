@@ -24,9 +24,8 @@ const BlogList = () => {
   const fetchBlogs = useCallback(async () => {
     try {
       let fetchedBlogs = [];
-      const authentication = isAuthenticated;
       setTimeout(async () => {
-        if (authentication && user && user.sub) { // Add checks for user and user.sub
+        if (isAuthenticated && user && user.sub) {
           fetchedBlogs = await blogApi.getAllBlogs(user.sub);
         } else {
           fetchedBlogs = await blogApi.getAllBlogs();
@@ -50,10 +49,8 @@ const BlogList = () => {
   }, [isAuthenticated, user]); // Include user in the dependency array
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchBlogs();
-    }
-  }, [isAuthenticated, fetchBlogs]);
+    fetchBlogs();
+  }, [fetchBlogs]);
 
   return (
     <div className='blog-page_container'>
