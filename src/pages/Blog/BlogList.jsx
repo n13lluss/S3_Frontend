@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import blogApi from '../../api/blogApi';
@@ -21,7 +21,7 @@ const BlogList = () => {
     }
   };
 
-  const fetchBlogs = async () => {
+  const fetchBlogs = useCallback(async () => {
     try {
       let fetchedBlogs = [];
       const authentication = isAuthenticated;
@@ -47,14 +47,13 @@ const BlogList = () => {
       setError(error);
       setLoading(false);
     }
-  };
+  }, [isAuthenticated, user.sub]);
 
   useEffect(() => {
     if (isAuthenticated) {
       fetchBlogs();
     }
-    fetchBlogs();
-  }, [isAuthenticated]); // Fetch blogs again when authentication status changes
+  }, [isAuthenticated, fetchBlogs]);
 
   return (
     <div className='blog-page_container'>
