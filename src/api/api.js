@@ -10,7 +10,10 @@ const api = {
     }),
     User: axios.create({
         baseURL: `${baseURL}/User`,
-    })
+    }),
+    Country: axios.create({
+        baseURL: `${baseURL}/Country`,
+    }),
   };
 
 export default api;

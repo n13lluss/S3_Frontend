@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './postcreationmodal.css';
-import postApi from '../api/postApi';
+import postApi from '../../../api/postApi';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const PostCreationModal = ({ isOpen, onClose, BlogId, onPostCreated }) => {

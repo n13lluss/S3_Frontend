@@ -49,10 +49,15 @@ const blogApi = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params: {
+          // Remove this line if not needed
+          // blog: updatedBlogData,
+        },
       });
       return response.data;
     } catch (error) {
-      console.error('Error updating blog:', error)
+      console.error('Error updating blog:', error);
+      throw error; // Throw the error to handle it in the calling function
     }
   },
 

@@ -66,7 +66,7 @@ const BlogList = () => {
       );
     }
   };
-  
+
   return (
     <div className='blog-page_container'>
       <h2 className='blog-page_title'>Blogs</h2>
@@ -87,24 +87,33 @@ const BlogList = () => {
             <div className='blog-post_container' key={blog.id}>
               <h3 className='blog-post_name'>{blog.name}</h3>
               <p className='blog-post_description'>{blog.description}</p>
-              <p className='blog-post_posted'>
-                Posted by {blog.user_Name} on{' '}
-                {new Date(blog.posted_On).toLocaleString()}
-              </p>
-              <p className='blog-post_likes'>Likes: {blog.likes}</p>
-              <section className='blog_post-buttons-container'>
-                <Link to={`/blogs/${blog.id}`}>
-                  <button className='blog-post_visit'>Visit Blog</button>
-                </Link>
-                {isAuthenticated && (
-                  <button
-                    onClick={async () => handleLike(blog.id, user.sub, blog.liked)}
-                    className={`blog-post_visit ${blog.liked ? 'unlike-button' : 'like-button'}`}
-                    disabled={!isAuthenticated} // Disable the button if not authenticated
-                  >
-                    {blog.liked ? 'Unlike blog' : 'Like blog'}
-                  </button>
-                )}
+              <section className='blog-post_information'>
+                <div className='blog-post_countries'>
+                  {blog.countries.map(country => (
+                    <div key={country.id} className='blog-country_bubble'>
+                      {country.name}
+                    </div>
+                  ))}
+                </div>
+                <p className='blog-post_posted'>
+                  Posted by {blog.user_Name} on{' '}
+                  {new Date(blog.posted_On).toLocaleString()}
+                </p>
+                <p className='blog-post_likes'>Likes: {blog.likes}</p>
+                <section className='blog_post-buttons-container'>
+                  <Link to={`/blogs/${blog.id}`}>
+                    <button className='blog-post_visit'>Visit Blog</button>
+                  </Link>
+                  {isAuthenticated && (
+                    <button
+                      onClick={async () => handleLike(blog.id, user.sub, blog.liked)}
+                      className={`blog-post_visit ${blog.liked ? 'unlike-button' : 'like-button'}`}
+                      disabled={!isAuthenticated} // Disable the button if not authenticated
+                    >
+                      {blog.liked ? 'Unlike blog' : 'Like blog'}
+                    </button>
+                  )}
+                </section>
               </section>
             </div>
           ))}

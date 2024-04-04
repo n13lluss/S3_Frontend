@@ -1,4 +1,5 @@
 .blog-page_container {
+    padding: 0px;
     display: flex;
     height: 100dvh;
     flex-direction: column;
@@ -142,6 +143,35 @@
     justify-self: center;
     align-self: center;
     text-align: center;
+}
+
+.blog-post_countries {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+  
+  .blog-country_bubble {
+    border: #49c4cd solid 1px;
+    border-radius: 20px;
+    padding: 0.5rem;
+    background-color: #49c4cd7e;
+    color: white;
+  }
+  
+  .blog-post_countries .blog-country_bubble:last-child {
+    margin-right: 0;
+  }
+  
+
+.blog-post_information{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-end;
 }
 
 @media (min-width: 450px) {
