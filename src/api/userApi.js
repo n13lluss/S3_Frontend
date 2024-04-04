@@ -2,8 +2,8 @@ import api from './api';
 
 const userApi = {
   createUser: async (userData) => {
-    try {
-      const response = await api.User.post('/Register', {
+   try {
+      const response = await api.User.post('/register', {
         name: userData.name,
         email: userData.email,
         IdString: userData.IdString,
