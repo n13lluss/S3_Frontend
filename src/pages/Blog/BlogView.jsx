@@ -55,7 +55,7 @@ const BlogView = () => {
   const handleEdit = async (editedData) => {
     try {
       const token = await getAccessTokenSilently();
-      var response = await blogApi.updateBlogById(id, editedData, token);
+      await blogApi.updateBlogById(id, editedData, token);
       navigate('/blogs');
     } catch (error) {
       console.error('Error editing blog:', error);

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import blogApi from '../../api/blogApi';
+import signalRService from '../../api/signalRService';
 import './bloglist.css';
 
 const BlogList = () => {
@@ -40,26 +41,41 @@ const BlogList = () => {
     fetchBlogs();
   }, [fetchBlogs]);
 
+  useEffect(() => {
+    signalRService.start();
+    signalRService.onReceiveBlogUpdate(handleBlogUpdate);
+    return () => {
+      signalRService.stop();
+      signalRService.offReceiveBlogUpdate();
+    };
+  }, []);
+
+  const handleBlogUpdate = (message) => {
+    fetchBlogs();
+  };
+
   const handleLike = async (id, idString, liked) => {
     try {
       const token = await getAccessTokenSilently();
       await blogApi.likeBlog(id, token, idString);
-      // Update the local state of the liked status and likes count
-      setBlogs(prevBlogs =>
-        prevBlogs.map(blog => {
+      setBlogs((prevBlogs) =>
+        prevBlogs.map((blog) => {
           if (blog.id === id) {
-            return { ...blog, liked: !liked, likes: liked ? blog.likes - 1 : blog.likes + 1 }; // Update likes count based on previous liked status
+            return {
+              ...blog,
+              liked: !liked,
+              likes: liked ? blog.likes - 1 : blog.likes + 1,
+            };
           }
           return blog;
         })
       );
     } catch (error) {
       console.error('Error liking blog:', error);
-      // Revert the local state if the like operation fails
-      setBlogs(prevBlogs =>
-        prevBlogs.map(blog => {
+      setBlogs((prevBlogs) =>
+        prevBlogs.map((blog) => {
           if (blog.id === id) {
-            return { ...blog, liked: liked }; // Revert the liked status
+            return { ...blog, liked: liked };
           }
           return blog;
         })
@@ -68,52 +84,46 @@ const BlogList = () => {
   };
 
   return (
-    <div className='blog-page_container'>
-      <h2 className='blog-page_title'>Blogs</h2>
+    <div className="blog-page_container">
+      <h2 className="blog-page_title">Blogs</h2>
 
-      {loading && <p className='blog-page_loading-text'>Loading blogs...</p>}
+      {loading && <p className="blog-page_loading-text">Loading blogs...</p>}
 
       {error && (
-        <div className='blog-page_error-text'>
+        <div className="blog-page_error-text">
           Error fetching blogs. Please try again later.
-          {/* You can provide more detailed error information if needed */}
           <p>{error.message}</p>
         </div>
       )}
 
       {!loading && !error && (
-        <section className='blog-page_post-container'>
+        <section className="blog-page_post-container">
           {blogs.map((blog) => (
-            <div className='blog-post_container' key={blog.id}>
-              <h3 className='blog-post_name'>{blog.name}</h3>
-              <p className='blog-post_description'>{blog.description}</p>
-              <section className='blog-post_information'>
-                <div className='blog-post_countries'>
-                  {blog.countries.map(country => (
-                    <div key={country.id} className='blog-country_bubble'>
-                      {country.name}
-                    </div>
-                  ))}
-                </div>
-                <p className='blog-post_posted'>
-                  Posted by {blog.user_Name} on{' '}
-                  {new Date(blog.posted_On).toLocaleString()}
-                </p>
-                <p className='blog-post_likes'>Likes: {blog.likes}</p>
-                <section className='blog_post-buttons-container'>
-                  <Link to={`/blogs/${blog.id}`}>
-                    <button className='blog-post_visit'>Visit Blog</button>
-                  </Link>
-                  {isAuthenticated && (
-                    <button
-                      onClick={async () => handleLike(blog.id, user.sub, blog.liked)}
-                      className={`blog-post_visit ${blog.liked ? 'unlike-button' : 'like-button'}`}
-                      disabled={!isAuthenticated} // Disable the button if not authenticated
-                    >
-                      {blog.liked ? 'Unlike blog' : 'Like blog'}
-                    </button>
-                  )}
-                </section>
+            <div className="blog-post_container" key={blog.id}>
+              <h3 className="blog-post_name">{blog.name}</h3>
+              <p className="blog-post_description">{blog.description}</p>
+              <p className="blog-post_posted">
+                Posted by {blog.user_Name} on{' '}
+                {new Date(blog.posted_On).toLocaleString()}
+              </p>
+              <p className="blog-post_likes">Likes: {blog.likes}</p>
+              <section className="blog_post-buttons-container">
+                <Link to={`/blogs/${blog.id}`}>
+                  <button className="blog-post_visit">Visit Blog</button>
+                </Link>
+                {isAuthenticated && (
+                  <button
+                    onClick={async () =>
+                      handleLike(blog.id, user.sub, blog.liked)
+                    }
+                    className={`blog-post_visit ${
+                      blog.liked ? 'unlike-button' : 'like-button'
+                    }`}
+                    disabled={!isAuthenticated} 
+                  >
+                    {blog.liked ? 'Unlike blog' : 'Like blog'}
+                  </button>
+                )}
               </section>
             </div>
           ))}
